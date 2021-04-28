@@ -1,0 +1,12 @@
+.service-box:hover{
+    background-color:lightcoral;
+    color:white;
+}
+.link{
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.service-img:hover{
+    height:90px !important;
+}
