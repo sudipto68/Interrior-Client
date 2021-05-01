@@ -207,9 +207,9 @@ const Booking = () => {
           </div>
         </div>
         <div className="col-md-3">
-          {loggedInUser?.email ? (
+          {loggedInUser?.email || loggedInUser?.name ? (
             <div>
-              <p className="m-2 mx-2">{loggedInUser?.displayName}</p>
+              <p className="m-2 mx-2">{loggedInUser?.name}</p>
             </div>
           ) : (
             ""

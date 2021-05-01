@@ -14,32 +14,33 @@ const Registration = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   let { from } = location.state || { from: { pathname: "/" } };
 
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
   const handleGoogleSignIn = () => {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    } else {
-      firebase.app(); // if already initialized, use that one
-    }
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
         /** @type {firebase.auth.OAuthCredential} */
-        //var credential = result.credential;
+        var credential = result.credential;
 
         // This gives you a Google Access Token. You can use it to access the Google API.
-        // var token = credential.accessToken;
-        // console.log(token);
-        // The signed-in user info.
-        var user = result.user;
+        var token = credential.accessToken;
+        console.log(token);
+        //The signed-in user info.
+        const user = result.user;
         const name = user.displayName;
         const email = user.email;
-        //console.log(user);
+        console.log(user);
         setLoggedInUser({
           name: name,
           email: email,
         });
+        console.log(loggedInUser);
         history.replace(from);
       })
       .catch((error) => {
