@@ -32,8 +32,14 @@ const Registration = () => {
         // var token = credential.accessToken;
         // console.log(token);
         // The signed-in user info.
-        var googleUser = result.user;
-        setLoggedInUser(googleUser);
+        var user = result.user;
+        const name = user.displayName;
+        const email = user.email;
+        //console.log(user);
+        setLoggedInUser({
+          name: name,
+          email: email,
+        });
         history.replace(from);
       })
       .catch((error) => {
