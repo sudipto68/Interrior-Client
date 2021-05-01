@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useHistory, useLocation } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { Button, Container, Navbar } from "react-bootstrap";
 import { UserContext } from "../../App";
 import firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "../../firebase.config";
+import firebaseConfig from "../../firebaseConfig";
 import login from "../../Image/login.jpg";
 import "./Login.css";
 
@@ -15,20 +16,35 @@ const Login = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   let { from } = location.state || { from: { pathname: "/" } };
 
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
   const handleGoogleSignIn = () => {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    } else {
-      firebase.app(); // if already initialized, use that one
-    }
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        var googleUser = result.user;
-        setLoggedInUser(googleUser);
+        /** @type {firebase.auth.OAuthCredential} */
+        const credential = result.credential;
+
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const token = credential.accessToken;
+        //console.log(token);
+        // The signed-in user info.
+        const user = result.user;
+        const name = user.displayName;
+        const email = user.email;
+        //console.log(user);
+        setLoggedInUser({
+          name: name,
+          email: email,
+        });
+        console.log(loggedInUser);
         history.replace(from);
+        // ...
       })
       .catch((error) => {
         // Handle Errors here.
@@ -36,12 +52,12 @@ const Login = () => {
         var errorMessage = error.message;
         // The email of the user's account used.
         var email = error.email;
-        alert(errorCode, errorMessage, email);
         // The firebase.auth.AuthCredential type that was used.
-        //var credential = error.credential;
-
+        var credential = error.credential;
+        alert(errorCode, errorMessage, email, credential);
         // ...
       });
+    console.log(loggedInUser);
   };
 
   return (

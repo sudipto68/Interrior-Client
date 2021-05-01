@@ -5,7 +5,7 @@ import "./Naavbar.css";
 import { UserContext } from "../../../App";
 import firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "../../../firebase.config";
+import firebaseConfig from "../../../firebaseConfig";
 
 const Naavbar = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
@@ -57,7 +57,21 @@ const Naavbar = () => {
               >
                 Admin
               </Nav.Link>
-              {!loggedInUser?.email ? (
+              {loggedInUser?.name || loggedInUser.email ? (
+                <Button
+                  className="button"
+                  onClick={handleLogout}
+                  style={{
+                    backgroundColor: "#1CC7C1",
+                    border: "none",
+                    width: "85px",
+                    marginTop: "5px",
+                    marginLeft: "100px",
+                  }}
+                >
+                  Logout
+                </Button>
+              ) : (
                 <Link to="/login">
                   <Button
                     className="button"
@@ -72,20 +86,6 @@ const Naavbar = () => {
                     Login
                   </Button>
                 </Link>
-              ) : (
-                <Button
-                  className="button"
-                  onClick={handleLogout}
-                  style={{
-                    backgroundColor: "#1CC7C1",
-                    border: "none",
-                    width: "85px",
-                    marginTop: "5px",
-                    marginLeft: "100px",
-                  }}
-                >
-                  Logout
-                </Button>
               )}
             </Nav>
           </Navbar.Collapse>

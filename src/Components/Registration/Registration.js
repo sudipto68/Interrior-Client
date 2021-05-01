@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import "./Registration.css";
 import firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "../../firebase.config";
+import firebaseConfig from "../../firebaseConfig";
 import { UserContext } from "../../App";
 import { useHistory, useLocation } from "react-router";
 const Registration = () => {
