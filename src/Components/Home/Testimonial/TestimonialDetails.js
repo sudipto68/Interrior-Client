@@ -6,7 +6,7 @@ import person3 from "../../../Image/person3.png";
 const TestimonialDetails = (props) => {
   const { name, company, description } = props.testimonial;
   return (
-    <div className="col-md-4 my-4 d-flex justify-content-center">
+    <div className="col-md-4 my-3 d-flex justify-content-center">
       <Card style={{ width: "19rem", border: "none" }} className="shadow">
         <Card.Body className="text-center">
           <div className="d-flex">

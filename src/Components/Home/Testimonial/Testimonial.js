@@ -13,7 +13,7 @@ const Testimonial = () => {
       });
   }, []);
   return (
-    <div style={{ backgroundColor: "#F6F6F6" }} className="main-div pb-4">
+    <div style={{ backgroundColor: "#F6F6F6" }} className="main-div pb-2">
       <Container>
         <h4
           className="pt-5 fw-bold text-center"
@@ -21,7 +21,7 @@ const Testimonial = () => {
         >
           Testimonials
         </h4>
-        <div className="row mb-4">
+        <div className="row mb-2">
           {review.map((testimonial) => (
             <TestimonialDetails
               key={testimonial?._id}
