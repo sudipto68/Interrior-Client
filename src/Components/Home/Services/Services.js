@@ -6,6 +6,7 @@ import icon1 from "../../../Image/Icon/icon1.png";
 import icon2 from "../../../Image/Icon/icon2.png";
 import icon3 from "../../../Image/Icon/icon3.png";
 import ServicesDetails from "./ServicesDetails";
+
 const Services = () => {
   const services = [
     { id: 1, icon: icon1, title: "Office Interrior Design", price: "$300" },
